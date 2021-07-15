@@ -1,0 +1,48 @@
+
+/* Class = "UITabBarItem"; title = "Quiz"; ObjectID = "4zd-I6-Pa1"; */
+"4zd-I6-Pa1.title" = "Quiz";
+
+/* Class = "UILabel"; text = "Degree Fahrenheit"; ObjectID = "6nc-p1-8Nx"; */
+"6nc-p1-8Nx.text" = "Degree Fahrenheit";
+
+/* Class = "UIButton"; normalTitle = "Show Answer"; ObjectID = "ADs-iJ-PGP"; */
+"ADs-iJ-PGP.normalTitle" = "Show Answer";
+
+/* Class = "UIViewController"; title = "ConvertView"; ObjectID = "BYZ-38-t0r"; */
+"BYZ-38-t0r.title" = "ConvertView";
+
+/* Class = "UILabel"; text = "Degree Cilsus"; ObjectID = "Cxm-uO-glR"; */
+"Cxm-uO-glR.text" = "Degree Cilsus";
+
+/* Class = "UITextField"; placeholder = "Value"; ObjectID = "FXp-wu-epP"; */
+"FXp-wu-epP.placeholder" = "Value";
+
+/* Class = "UIViewController"; title = "MapView"; ObjectID = "Jdk-7F-eWp"; */
+"Jdk-7F-eWp.title" = "MapView";
+
+/* Class = "UILabel"; text = "100"; ObjectID = "Kne-Lp-7NJ"; */
+"Kne-Lp-7NJ.text" = "100";
+
+/* Class = "UIButton"; normalTitle = "Next Question"; ObjectID = "MI6-fj-wch"; */
+"MI6-fj-wch.normalTitle" = "Next Question";
+
+/* Class = "UITabBarItem"; title = "Convert"; ObjectID = "Ndn-me-up1"; */
+"Ndn-me-up1.title" = "Convert";
+
+/* Class = "UILabel"; text = "???"; ObjectID = "RHo-DY-XkZ"; */
+"RHo-DY-XkZ.text" = "???";
+
+/* Class = "UILabel"; text = "???"; ObjectID = "Yd3-rd-0bi"; */
+"Yd3-rd-0bi.text" = "???";
+
+/* Class = "UITabBarItem"; title = "Quiz"; ObjectID = "dXA-gF-WQJ"; */
+"dXA-gF-WQJ.title" = "Quiz";
+
+/* Class = "UIViewController"; title = "QuizView"; ObjectID = "iiw-qe-7oI"; */
+"iiw-qe-7oI.title" = "QuizView";
+
+/* Class = "UILabel"; text = "Is Really"; ObjectID = "koa-G5-iQR"; */
+"koa-G5-iQR.text" = "Is Really";
+
+/* Class = "UITabBarItem"; title = "Map"; ObjectID = "zNJ-OM-rOw"; */
+"zNJ-OM-rOw.title" = "Map";
