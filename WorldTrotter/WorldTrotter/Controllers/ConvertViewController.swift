@@ -7,9 +7,30 @@
 
 import UIKit
 
+
 class ConvertViewController: UIViewController {
+    
+    @IBOutlet private var celsiusLabel: UILabel!
+    @IBOutlet private var textField: UITextField!
+    
+    // Degree var
+    private var fahrenheitValue: Measurement<UnitTemperature>? {
+        didSet {
+            willUpdateCelsius()
+        }
+    }
+    private var celsiusValue: Measurement<UnitTemperature>? {
+        if let fahrenheitValue = fahrenheitValue {
+            return fahrenheitValue.converted(to: .celsius)
+        } else {
+            return nil
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+//        textField.delegate = self
+        
         // Step 1:
         // UIWindow -> UI View(UIButton, UILable, UITextField, etc...) -> UIElements
         // CGRect as frame -> create UIView from the frame -> add UIView to subviews
@@ -45,23 +66,54 @@ class ConvertViewController: UIViewController {
 //        grLayer.frame = qView.bounds
 //        qView.layer.insertSublayer(grLayer, at: 0)
 //        view.addSubview(qView)
+        
+        willUpdateCelsius()
+    }
+
+    
+    @IBAction func fahrenheitFieldEditingChanged(_ textField: UITextField) {
+        if let text = textField.text, !text.isEmpty, let value = Double(text) {
+            fahrenheitValue = Measurement(value: value, unit: .fahrenheit)
+        } else {
+            fahrenheitValue = nil
+        }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(<#Bool#>)
-        let colors: [UIColor] = [
-            .red,
-            .blue,
-            .magenta,
-            .green,
-            .cyan,
-            .darkGray,
-            .purple
-        ]
-        
-        let randomN: Int = Int.random(in: 0...6)
-        view.backgroundColor = colors[randomN]
+    @IBAction func dismissKeyboard(_ gestureDetector: UIGestureRecognizer) {
+        textField.resignFirstResponder()
     }
+    
+    private func willUpdateCelsius() {
+        let numberFormatter: NumberFormatter = {
+            let nf = NumberFormatter()
+            nf.numberStyle = .decimal
+            nf.minimum = 0
+            nf.maximum = 0.80
+            return nf
+        }()
+        
+        if let celsiusValue = celsiusValue {
+            celsiusLabel.text = numberFormatter.string(from: NSNumber(value: celsiusValue.value))
+        } else {
+            celsiusLabel.text = "???"
+        }
+    }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(<#Bool#>)
+//        let colors: [UIColor] = [
+//            .red,
+//            .blue,
+//            .magenta,
+//            .green,
+//            .cyan,
+//            .darkGray,
+//            .purple
+//        ]
+//
+//        let randomN: Int = Int.random(in: 0...6)
+//        view.backgroundColor = colors[randomN]
+//    }
 }
 
 // Related function for Step 2:
@@ -73,3 +125,22 @@ class ConvertViewController: UIViewController {
 //}
 
 
+extension UIViewController: UITextFieldDelegate {
+    // Prevent from multiple dot for decimal
+    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        let existingInTextFiled = textField.text?.range(of: ".")
+        let exitingInString = string.range(of: ".")
+        let existingAlphabetCharacter = string.rangeOfCharacter(from: CharacterSet.letters)
+        
+        if existingInTextFiled != nil, exitingInString != nil {
+            return false
+        } else {
+            if  existingAlphabetCharacter != nil {
+                return false
+            } else {
+                return true
+            }
+        }
+    }
+}

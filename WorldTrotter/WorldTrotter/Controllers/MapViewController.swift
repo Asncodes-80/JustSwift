@@ -7,9 +7,12 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     let mapView: MKMapView = MKMapView()
+    let location = CLLocationManager()
+    
     public var pointsOfInterestStatus: String = "Disable"
     // Public Create a label
     let switchLabelPointOfInterest = UILabel()
@@ -82,12 +85,12 @@ class MapViewController: UIViewController {
     @objc func pointOfInterest(_ pointSwitch: UISwitch) {
         if pointSwitch.isOn {
 //            none filter to show all details
-            pointsOfInterestStatus = "Enable"
+            pointsOfInterestStatus = "Disable"
             switchLabelPointOfInterest.text = "\(pointsOfInterestStatus) Points of Interest"
             mapView.pointOfInterestFilter = .none
         } else {
 //            Exclude from all filter such as airport and etc...
-            pointsOfInterestStatus = "Disable"
+            pointsOfInterestStatus = "Enable"
             switchLabelPointOfInterest.text = "\(pointsOfInterestStatus) Points of Interest"
             mapView.pointOfInterestFilter = .excludingAll
         }
@@ -96,7 +99,31 @@ class MapViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        location.delegate = self
+    }
     
+    override func viewWillAppear(_ animated: Bool) {
+        location.requestWhenInUseAuthorization()
+        location.requestLocation()
+    }
+    
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            let longitude = location.coordinate.longitude
+            let latitude = location.coordinate.latitude
+            print(longitude, latitude)
+            let center = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+            let region = MKCoordinateRegion(center: center,  span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+            mapView.setRegion(region, animated: true)
+
+        } else {
+            print("Error in Getting optional binding of locations")
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("This is Error from Core Location Manager: \(error)")
     }
     
 }
